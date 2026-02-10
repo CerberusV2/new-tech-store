@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volt Tech - Каталог</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=15">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="TechStore" class="logo-icon-img">
+                Volt Tech
+            </a>
+
+            <nav>
+                <ul class="flex gap-4">
+                    <li><a href="index.html" class="nav-link">Главная</a></li>
+                    <li><a href="catalog.html" class="nav-link active">Каталог</a></li>
+                    <li><a href="builds.html" class="nav-link">Сборки</a></li>
+                </ul>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <a href="auth.html" class="nav-link">Войти</a>
+                <a href="cart.html" class="cart-btn">
+                    🛒
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container catalog-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="glass-panel" style="padding: 1.5rem;">
+                <div class="filter-section">
+                    <h3 class="filter-title">Категории</h3>
+                    <ul class="category-list" id="category-list">
+                        <li><button class="category-btn active" data-category="all">Все</button></li>
+                        <li><button class="category-btn" data-category="gpu">Видеокарты</button></li>
+                        <li><button class="category-btn" data-category="cpu">Процессоры</button></li>
+                        <li><button class="category-btn" data-category="motherboard">Материнские платы</button>
+                        </li>
+                        <li><button class="category-btn" data-category="ram">Память</button></li>
+                        <li><button class="category-btn" data-category="storage">Накопители</button></li>
+                        <li><button class="category-btn" data-category="psu">Блоки питания</button></li>
+                    </ul>
+                </div>
+
+                <div class="filter-section">
+                    <h3 class="filter-title">Цена</h3>
+                    <div class="range-slider-container">
+                        <div class="slider-track" id="slider-track"></div>
+                        <input type="range" id="price-min" min="0" max="500000" value="0">
+                        <input type="range" id="price-max" min="0" max="500000" value="500000">
+                    </div>
+                    <div class="price-range">
+                        <span id="price-min-display">0 сом</span>
+                        <span id="price-max-display">500000 сом</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Grid -->
+        <main>
+            <div class="catalog-header">
+                <h2>Все Товары</h2>
+                <input type="text" id="search-input" placeholder="Поиск товаров..." class="search-bar">
+
+                <!-- Простая сортировка/количество (пока статика) -->
+                <div class="flex items-center gap-2" style="font-size: 0.9rem; color: var(--text-secondary);">
+                    <span id="product-count">24 товара</span>
+                    <select id="sort-select"
+                        style="background: var(--bg-secondary); color: white; border: 1px solid var(--border-color); padding: 5px; border-radius: 5px;">
+                        <option value="recommended">Рекомендуемые</option>
+                        <option value="price-asc">Сначала дешевые</option>
+                        <option value="price-desc">Сначала дорогие</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <!-- Товары будут вставлены сюда через JS -->
+                <div class="text-center" style="grid-column: 1/-1; padding: 2rem;">Загрузка товаров...</div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/data.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

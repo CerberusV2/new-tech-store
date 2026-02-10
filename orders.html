@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volt Tech - Управление Заказами</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=15">
+    <link rel="stylesheet" href="css/orders.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="TechStore" class="logo-icon-img">
+                Volt Tech
+            </a>
+
+            <nav>
+                <ul class="flex gap-4">
+                    <li><a href="index.html" class="nav-link">Главная</a></li>
+                    <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+                    <li><a href="builds.html" class="nav-link">Сборки</a></li>
+                </ul>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <a href="auth.html" class="nav-link">Войти</a>
+                <a href="orders.html" class="cart-btn">
+                    📋
+                    <span class="cart-badge" id="orders-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" style="padding-top: calc(var(--header-height) + 2rem); min-height: 80vh;">
+        <h1 style="margin-bottom: 2rem;">📋 Управление Заказами</h1>
+
+        <div id="admin-check" style="display: none;">
+            <p class="text-center" style="padding: 4rem;">У вас нет прав доступа к этой странице.</p>
+        </div>
+
+        <div id="orders-container">
+            <!-- Фильтры -->
+            <div class="glass-panel" style="padding: 1.5rem; margin-bottom: 2rem;">
+                <div class="flex items-center gap-2">
+                    <span style="color: var(--text-secondary);">Фильтр по статусу:</span>
+                    <select id="status-filter"
+                        style="background: var(--bg-secondary); color: white; border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 8px;">
+                        <option value="all">Все заказы</option>
+                        <option value="в обработке">В обработке</option>
+                        <option value="отправлен">Отправлен</option>
+                        <option value="доставлен">Доставлен</option>
+                        <option value="отменен">Отменен</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Таблица заказов -->
+            <div class="glass-panel" style="padding: 1.5rem;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <th style="padding: 1rem; text-align: left;">№ Заказа</th>
+                            <th style="padding: 1rem; text-align: left;">Дата</th>
+                            <th style="padding: 1rem; text-align: left;">Клиент</th>
+                            <th style="padding: 1rem; text-align: left;">Сумма</th>
+                            <th style="padding: 1rem; text-align: left;">Статус</th>
+                            <th style="padding: 1rem; text-align: left;">Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-table">
+                        <tr>
+                            <td colspan="6" style="padding: 2rem; text-align: center; color: var(--text-secondary);">
+                                Загрузка заказов...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/orders.js"></script>
+</body>
+
+</html>

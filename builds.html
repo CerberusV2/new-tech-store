@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volt Tech - Мастерская ПК</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=15">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="TechStore" class="logo-icon-img">
+                Volt Tech
+            </a>
+
+            <nav>
+                <ul class="flex gap-4">
+                    <li><a href="index.html" class="nav-link">Главная</a></li>
+                    <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+                    <li><a href="builds.html" class="nav-link active">Сборки</a></li>
+                </ul>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <a href="auth.html" class="nav-link">Войти</a>
+                <a href="cart.html" class="cart-btn">
+                    🛒
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" style="padding-top: calc(var(--header-height) + 2rem);">
+        <h1 class="text-center" style="margin-bottom: 0.5rem;">Мастерская ПК</h1>
+        <p class="text-center text-secondary" style="margin-bottom: 2rem;">Выберите готовую конфигурацию или создайте
+            своего
+            монстра с нуля</p>
+
+        <div class="builds-tabs">
+            <button class="tab-btn" onclick="openTab('prebuilt')">Готовые сборки</button>
+            <button class="tab-btn active" onclick="openTab('custom')">Создать свою</button>
+        </div>
+
+        <!-- Pre-built Section -->
+        <div id="tab-prebuilt" class="tab-content" style="display: none;">
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+                <!-- Готовые сборки -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="img/image4_933cfa5e80.png" alt="Office PC" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Офисный Старт</h3>
+                        <div class="build-components">
+                            <div class="component-item">Процессор: Intel Core i3-12100</div>
+                            <div class="component-item">Видеокарта: Integrated Graphics</div>
+                            <div class="component-item">Материнская плата: ASRock B660M</div>
+                            <div class="component-item">Память: 8GB DDR4 3200MHz</div>
+                            <div class="component-item">Накопитель: 256GB NVMe SSD</div>
+                            <div class="component-item">Блок питания: 450W 80+ Bronze</div>
+                        </div>
+                        <p class="product-desc" style="margin-top: 1rem;">Отлично для работы с документами и
+                            веб-серфинга.</p>
+                        <div class="product-footer">
+                            <div class="product-price">30 000 сом</div>
+                            <button class="btn btn-primary btn-sm"
+                                onclick="window.addPrebuiltToCart('office-start', 'Офисный Старт', 350)">В
+                                корзину</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="img/igrovoj-pk-i7-rx-570-nitro-16gb-ssd-hdd-id-109652491-870036508.webp"
+                            alt="Gaming PC" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Игровой PRO</h3>
+                        <div class="build-components">
+                            <div class="component-item">Процессор: Intel Core i5-12400F</div>
+                            <div class="component-item">Видеокарта: NVIDIA RTX 3060 12GB</div>
+                            <div class="component-item">Материнская плата: MSI B660M Gaming</div>
+                            <div class="component-item">Память: 16GB DDR4 3600MHz</div>
+                            <div class="component-item">Накопитель: 512GB NVMe SSD</div>
+                            <div class="component-item">Блок питания: 650W 80+ Gold</div>
+                        </div>
+                        <p class="product-desc" style="margin-top: 1rem;">Тянет все современные игры на высоких
+                            настройках.</p>
+                        <div class="product-footer">
+                            <div class="product-price">75 000 сом</div>
+                            <button class="btn btn-primary btn-sm"
+                                onclick="window.addPrebuiltToCart('gaming-pro', 'Игровой PRO', 950)">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="img/7993fff1-b399-4be2-8c5e-7567462f2227.webp" alt="Ultra PC" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Ultra Beast</h3>
+                        <div class="build-components">
+                            <div class="component-item">Процессор: Intel Core i9-13900K</div>
+                            <div class="component-item">Видеокарта: NVIDIA RTX 4090 24GB</div>
+                            <div class="component-item">Материнская плата: ASUS ROG Z790</div>
+                            <div class="component-item">Память: 64GB DDR5 6000MHz</div>
+                            <div class="component-item">Накопитель: 2TB NVMe Gen4 SSD</div>
+                            <div class="component-item">Блок питания: 1000W 80+ Platinum</div>
+                        </div>
+                        <p class="product-desc" style="margin-top: 1rem;">Максимальная производительность для
+                            профессионалов.</p>
+                        <div class="product-footer">
+                            <div class="product-price">300 000 сом</div>
+                            <button class="btn btn-primary btn-sm"
+                                onclick="window.addPrebuiltToCart('ultra-beast', 'Ultra Beast', 3500)">В
+                                корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Builder Section -->
+        <div id="tab-custom" class="tab-content builder-container">
+            <!-- Left: Components -->
+            <div class="builder-components">
+
+                <div class="component-selector glass-panel">
+                    <div class="component-label">
+                        <div class="component-img-preview" id="preview-mobo">
+                            <img src="img/Motherboard.png" alt="Motherboard">
+                        </div>
+                        Материнская плата
+                    </div>
+                    <div class="component-select-wrapper">
+                        <select id="select-mobo" class="component-select"></select>
+                    </div>
+                </div>
+
+                <div class="component-selector glass-panel">
+                    <div class="component-label">
+                        <div class="component-img-preview" id="preview-cpu">
+                            <img src="img/Cpu.png" alt="CPU">
+                        </div>
+                        Процессор
+                    </div>
+                    <div class="component-select-wrapper">
+                        <select id="select-cpu" class="component-select"></select>
+                    </div>
+                </div>
+
+                <div class="component-selector glass-panel">
+                    <div class="component-label">
+                        <div class="component-img-preview" id="preview-gpu">
+                            <img src="img/Gpu.png" alt="GPU">
+                        </div>
+                        Видеокарта
+                    </div>
+                    <div class="component-select-wrapper">
+                        <select id="select-gpu" class="component-select"></select>
+                    </div>
+                </div>
+
+                <div class="component-selector glass-panel">
+                    <div class="component-label">
+                        <div class="component-img-preview" id="preview-ram">
+                            <img src="img/Ram.png" alt="RAM">
+                        </div>
+                        Память
+                    </div>
+                    <div class="component-select-wrapper">
+                        <select id="select-ram" class="component-select"></select>
+                    </div>
+                </div>
+
+                <div class="component-selector glass-panel">
+                    <div class="component-label">
+                        <div class="component-img-preview" id="preview-ssd">
+                            <img src="img/SSD.png" alt="SSD">
+                        </div>
+                        SSD
+                    </div>
+                    <div class="component-select-wrapper">
+                        <select id="select-ssd" class="component-select"></select>
+                    </div>
+                </div>
+
+                <div class="component-selector glass-panel">
+                    <div class="component-label">
+                        <div class="component-img-preview" id="preview-psu">
+                            <img src="img/Psu.png" alt="PSU">
+                        </div>
+                        Блок питания
+                    </div>
+                    <div class="component-select-wrapper">
+                        <select id="select-psu" class="component-select"></select>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right: Stats -->
+            <aside class="builder-stats">
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Параметры сборки</h3>
+
+                    <div class="stat-row">
+                        <span style="color: var(--text-secondary)">Стоимость</span>
+                        <span id="build-price" style="font-weight: bold; font-size: 1.2rem;">0.00 сом</span>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <div style="font-size: 0.9rem; margin-bottom: 5px;">
+                            Энергопотребление (от БП)
+                        </div>
+                        <div class="wattage-bar-container"
+                            style="height: 24px; position: relative; background: #333; border-radius: 12px;">
+                            <div id="wattage-fill" class="wattage-bar-fill"
+                                style="height: 100%; border-radius: 12px; width: 0%;"></div>
+                            <div id="wattage-text"
+                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.8rem; font-weight: bold; text-shadow: 0 0 2px black;">
+                                0 W</div>
+                        </div>
+                    </div>
+
+                    <div id="build-msg" class="compatibility-status status-ok">
+                        Выберите компоненты, чтобы проверить совместимость.
+                    </div>
+
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;"
+                        onclick="alert('Сборка добавлена в корзину!')">В корзину</button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/data.js"></script>
+    <script type="module" src="js/builder.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/builds.js"></script>
+</body>
+
+</html>

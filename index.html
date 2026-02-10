@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volt Tech - Максимальная Мощность</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=15">
+    <link rel="stylesheet" href="css/index.css?v=15">
+    <!-- responsive.css is imported in style.css, but we can also bump versions there if needed, 
+         but technically style.css changes will trigger reload of imports usually. 
+         However, let's just stick to style.css versioning for now as that's the main entry point -->
+    <!-- Иконки (можно заменить на локальные SVG или FontAwesome, пока используем заглушки в коде или emoji для простоты) -->
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="VoltTech" class="logo-icon-img">
+                Volt Tech
+            </a>
+
+            <nav>
+                <ul class="flex gap-4">
+                    <li><a href="index.html" class="nav-link active">Главная</a></li>
+                    <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+                    <li><a href="builds.html" class="nav-link">Сборки</a></li>
+                </ul>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <a href="auth.html" class="nav-link">Войти</a>
+                <a href="cart.html" class="cart-btn">
+                    🛒
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero flex items-center justify-center text-center">
+        <!-- Background Gradient Blur -->
+        <div class="hero-bg-blur"></div>
+
+        <div class="container">
+            <h1 class="hero-title text-gradient">
+                Максимальная Мощность Для Вашего Игрового Места
+            </h1>
+            <p class="hero-subtitle">
+                Премиальные комплектующие для геймеров, создателей контента и профессионалов.
+                Соберите машину своей мечты с новейшими технологиями.
+            </p>
+
+            <div class="hero-buttons flex justify-center gap-2">
+                <a href="catalog.html" class="btn btn-primary">В магазин</a>
+                <a href="auth.html" class="btn btn-outline">Войти</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="grid features-grid">
+                <div class="feature-card glass-panel">
+                    <img src="img/feature-speed.png" alt="Speed" class="feature-img">
+                    <h3>Высочайшая Скорость</h3>
+                    <p>Процессоры и видеокарты последнего поколения для максимального FPS.</p>
+                </div>
+                <div class="feature-card glass-panel">
+                    <img src="img/feature-security.png" alt="Security" class="feature-img">
+                    <h3>Надежно и Безопасно</h3>
+                    <p>Проверенные комплектующие с полной гарантией качества.</p>
+                </div>
+                <div class="feature-card glass-panel">
+                    <img src="img/feature-delivery.png" alt="Delivery" class="feature-img">
+                    <h3>Быстрая Доставка</h3>
+                    <p>Отправка в день заказа при оформлении до 14:00.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

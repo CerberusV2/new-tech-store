@@ -1,0 +1,26 @@
+.status-badge {
+    padding: 6px 16px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-в-обработке {
+    background: rgba(255, 166, 0, 0.2);
+    color: #ffa600;
+}
+
+.status-отправлен {
+    background: rgba(0, 123, 255, 0.2);
+    color: #007bff;
+}
+
+.status-доставлен {
+    background: rgba(0, 255, 128, 0.2);
+    color: #00ff80;
+}
+
+.status-отменен {
+    background: rgba(255, 0, 85, 0.2);
+    color: #ff0055;
+}
