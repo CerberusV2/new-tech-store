@@ -26,7 +26,7 @@ function renderOrders(orders) {
         const items = order.items.map(item => `
             <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
                 <span>${item.name} x${item.quantity}</span>
-                <span style="font-weight: bold;">$${(item.price * item.quantity).toFixed(2)}</span>
+                <span style="font-weight: bold;">${(item.price * item.quantity).toFixed(0)} сом</span>
             </div>
         `).join('');
 
@@ -52,7 +52,7 @@ function renderOrders(orders) {
                     </div>
                     <div style="text-align: right;">
                         <div style="color: var(--text-secondary); font-size: 0.9rem;">Итого:</div>
-                        <div style="font-size: 1.5rem; font-weight: bold; color: var(--accent-primary);">$${order.total}</div>
+                        <div style="font-size: 1.5rem; font-weight: bold; color: var(--accent-primary);">${order.total} сом</div>
                     </div>
                 </div>
             </div>

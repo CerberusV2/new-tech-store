@@ -5,7 +5,7 @@ const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
 const totalEl = document.getElementById('order-total');
 if (totalEl) {
-    totalEl.innerText = `$${total.toFixed(2)}`;
+    totalEl.innerText = `${total.toFixed(0)} сом`;
 }
 
 // Check Auth immediately
