@@ -8,12 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=15">
-    <link rel="stylesheet" href="css/index.css?v=15">
-    <!-- responsive.css is imported in style.css, but we can also bump versions there if needed, 
-         but technically style.css changes will trigger reload of imports usually. 
-         However, let's just stick to style.css versioning for now as that's the main entry point -->
-    <!-- Иконки (можно заменить на локальные SVG или FontAwesome, пока используем заглушки в коде или emoji для простоты) -->
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <link rel="stylesheet" href="css/index.css?v=16">
 </head>
 
 <body>
@@ -46,10 +42,9 @@
 
     <!-- Hero Section -->
     <section class="hero flex items-center justify-center text-center">
-        <!-- Background Gradient Blur -->
         <div class="hero-bg-blur"></div>
 
-        <div class="container">
+        <div class="container scroll-animate">
             <h1 class="hero-title text-gradient">
                 Максимальная Мощность Для Вашего Игрового Места
             </h1>
@@ -60,26 +55,31 @@
 
             <div class="hero-buttons flex justify-center gap-2">
                 <a href="catalog.html" class="btn btn-primary">В магазин</a>
-                <a href="auth.html" class="btn btn-outline">Войти</a>
+                <a href="builds.html" class="btn btn-outline">Конструктор ПК</a>
             </div>
         </div>
+    </section>
+
+    <!-- Слайдер / Карусель акций -->
+    <section class="promo-slider-section">
+        <div class="container scroll-animate" id="promo-slider-container"></div>
     </section>
 
     <!-- Features Section -->
     <section class="features">
         <div class="container">
             <div class="grid features-grid">
-                <div class="feature-card glass-panel">
+                <div class="feature-card glass-panel scroll-animate">
                     <img src="img/feature-speed.png" alt="Speed" class="feature-img">
                     <h3>Высочайшая Скорость</h3>
                     <p>Процессоры и видеокарты последнего поколения для максимального FPS.</p>
                 </div>
-                <div class="feature-card glass-panel">
+                <div class="feature-card glass-panel scroll-animate">
                     <img src="img/feature-security.png" alt="Security" class="feature-img">
                     <h3>Надежно и Безопасно</h3>
                     <p>Проверенные комплектующие с полной гарантией качества.</p>
                 </div>
-                <div class="feature-card glass-panel">
+                <div class="feature-card glass-panel scroll-animate">
                     <img src="img/feature-delivery.png" alt="Delivery" class="feature-img">
                     <h3>Быстрая Доставка</h3>
                     <p>Отправка в день заказа при оформлении до 14:00.</p>

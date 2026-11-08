@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volt Tech - Личный кабинет</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <link rel="stylesheet" href="css/profile.css?v=16">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="TechStore" class="logo-icon-img">
+                Volt Tech
+            </a>
+
+            <nav>
+                <ul class="flex gap-4">
+                    <li><a href="index.html" class="nav-link">Главная</a></li>
+                    <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+                    <li><a href="builds.html" class="nav-link">Сборки</a></li>
+                </ul>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <a href="auth.html" class="nav-link">Войти</a>
+                <a href="cart.html" class="cart-btn">
+                    🛒
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container profile-container">
+        <div id="profile-not-logged" class="glass-panel text-center" style="display: none; padding: 4rem 2rem;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
+            <h2 style="margin-bottom: 0.75rem;">Вы не авторизованы</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Войдите в свой аккаунт, чтобы управлять профилем, заказами и списком избранного.</p>
+            <a href="auth.html" class="btn btn-primary">Войти в аккаунт</a>
+        </div>
+
+        <div id="profile-content" style="display: none;">
+            <!-- Шапка профиля -->
+            <div class="profile-header glass-panel">
+                <div class="profile-avatar" id="profile-avatar">В</div>
+                <div class="profile-user-info">
+                    <div class="profile-name-row">
+                        <h1 id="profile-name">Пользователь</h1>
+                        <span class="role-badge" id="profile-role-badge">Пользователь</span>
+                    </div>
+                    <p class="profile-email" id="profile-email">user@example.com</p>
+                    <p class="profile-since" id="profile-since">На сайте с 2026 г.</p>
+                </div>
+                <div class="profile-header-actions">
+                    <a href="orders.html" id="admin-panel-link" class="btn btn-primary btn-sm" style="display: none;">🛠️ Панель админа</a>
+                    <button class="btn profile-logout-btn btn-sm" id="logout-btn">🚪 Выйти</button>
+                </div>
+            </div>
+
+            <!-- Статистика -->
+            <div class="profile-stats">
+                <div class="stat-card glass-panel">
+                    <div class="stat-value" id="stat-orders-count">0</div>
+                    <div class="stat-label">Заказов оформлено</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div class="stat-value" id="stat-favorites-count">0</div>
+                    <div class="stat-label">Товаров в избранном</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div class="stat-value" id="stat-total-spent">0 сом</div>
+                    <div class="stat-label">Сумма покупок</div>
+                </div>
+            </div>
+
+            <!-- Вкладки -->
+            <div class="profile-tabs">
+                <button class="profile-tab-btn active" data-tab="info">👤 Личные данные</button>
+                <button class="profile-tab-btn" data-tab="orders">📦 История заказов</button>
+                <button class="profile-tab-btn" data-tab="favorites">❤️ Избранное</button>
+            </div>
+
+            <!-- Вкладка: Личные данные -->
+            <div class="profile-tab-content active" id="tab-info">
+                <div class="glass-panel" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Настройки профиля</h3>
+                    <form id="profile-form" class="profile-info-form" novalidate>
+                        <div class="form-group">
+                            <label class="form-label" for="prof-username">Имя / Никнейм</label>
+                            <input type="text" id="prof-username" class="form-input" placeholder="Введите ваше имя">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="prof-email">Электронная почта (логин)</label>
+                            <input type="email" id="prof-email" class="form-input" disabled style="opacity: 0.6; cursor: not-allowed;">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="prof-phone">Телефон для доставки</label>
+                            <input type="tel" id="prof-phone" class="form-input" placeholder="+996 555 00-00-00">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="prof-address">Адрес доставки по умолчанию</label>
+                            <input type="text" id="prof-address" class="form-input" placeholder="г. Бишкек, ул. Московская 100">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="save-profile-btn">Сохранить изменения</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Вкладка: Мои заказы -->
+            <div class="profile-tab-content" id="tab-orders">
+                <div id="profile-orders-list"></div>
+            </div>
+
+            <!-- Вкладка: Избранное -->
+            <div class="profile-tab-content" id="tab-favorites">
+                <div class="products-grid" id="profile-favorites-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/profile.js"></script>
+</body>
+
+</html>

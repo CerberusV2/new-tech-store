@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volt Tech - Оформление заказа</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=15">
+    <link rel="stylesheet" href="css/style.css?v=16">
 </head>
 
 <body>
@@ -20,40 +20,48 @@
         </div>
     </header>
 
-    <div class="container" style="padding-top: calc(var(--header-height) + 2rem);">
+    <div class="container" style="padding-top: calc(var(--header-height) + 2rem); padding-bottom: 4rem;">
         <h1 class="text-center" style="margin-bottom: 2rem;">Оформление заказа</h1>
 
         <div class="checkout-form">
-            <form id="checkout-form" class="glass-panel" style="padding: 2rem;">
+            <form id="checkout-form" class="glass-panel" style="padding: 2rem;" novalidate>
                 <h3 style="margin-bottom: 1.5rem;">Контактные данные</h3>
 
                 <div class="form-group">
-                    <label class="form-label">Имя получателя</label>
-                    <input type="text" id="name" class="form-input" required placeholder=" ">
+                    <label class="form-label" for="name">Имя получателя *</label>
+                    <input type="text" id="name" class="form-input" placeholder="Иван Иванов">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Телефон</label>
-                    <input type="tel" id="phone" class="form-input" required placeholder="+996 000-00-00">
+                    <label class="form-label" for="phone">Телефон *</label>
+                    <input type="tel" id="phone" class="form-input" placeholder="+996 555 12-34-56">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" id="email" class="form-input" required>
+                    <label class="form-label" for="email">Email *</label>
+                    <input type="email" id="email" class="form-input" placeholder="name@example.com">
                 </div>
 
                 <h3 style="margin: 2rem 0 1.5rem;">Адрес доставки</h3>
 
                 <div class="form-group">
-                    <label class="form-label">Город, Улица, Дом</label>
-                    <textarea id="address" class="form-input" rows="3" required
-                        placeholder="Бишкек ул.Московсая 100"></textarea>
+                    <label class="form-label" for="address">Город, Улица, Дом *</label>
+                    <textarea id="address" class="form-input" rows="3"
+                        placeholder="г. Бишкек, ул. Московская 100, кв. 12"></textarea>
                 </div>
 
-                <div class="glass-panel" style="background: rgba(0,0,0,0.3); padding: 1rem; margin: 2rem 0;">
-                    <div class="flex justify-between" style="font-size: 1.1rem; font-weight: bold;">
+                <div class="glass-panel" style="background: rgba(0,0,0,0.3); padding: 1.25rem; margin: 2rem 0;">
+                    <div class="flex justify-between" style="margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--text-secondary);">
+                        <span>Сумма товаров:</span>
+                        <span id="order-subtotal">0.00 сом</span>
+                    </div>
+                    <div class="flex justify-between" id="order-discount-row" style="margin-bottom: 0.5rem; font-size: 0.95rem; color: #00ff80; display: none;">
+                        <span id="order-discount-label">Скидка:</span>
+                        <span id="order-discount">-0.00 сом</span>
+                    </div>
+                    <div class="flex justify-between" style="font-size: 1.2rem; font-weight: bold; padding-top: 0.5rem; border-top: 1px solid var(--border-color);">
                         <span>Итого к оплате:</span>
-                        <span id="order-total">0.00 сом</span>
+                        <span id="order-total" style="color: var(--accent-primary);">0.00 сом</span>
                     </div>
                 </div>
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volt Tech - Каталог</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=15">
+    <link rel="stylesheet" href="css/style.css?v=20">
 </head>
 
 <body>
@@ -46,8 +46,7 @@
                         <li><button class="category-btn active" data-category="all">Все</button></li>
                         <li><button class="category-btn" data-category="gpu">Видеокарты</button></li>
                         <li><button class="category-btn" data-category="cpu">Процессоры</button></li>
-                        <li><button class="category-btn" data-category="motherboard">Материнские платы</button>
-                        </li>
+                        <li><button class="category-btn" data-category="motherboard">Материнские платы</button></li>
                         <li><button class="category-btn" data-category="ram">Память</button></li>
                         <li><button class="category-btn" data-category="storage">Накопители</button></li>
                         <li><button class="category-btn" data-category="psu">Блоки питания</button></li>
@@ -72,14 +71,12 @@
         <!-- Main Grid -->
         <main>
             <div class="catalog-header">
-                <h2>Все Товары</h2>
+                <h2 id="catalog-title" class="catalog-heading">Все Товары</h2>
                 <input type="text" id="search-input" placeholder="Поиск товаров..." class="search-bar">
 
-                <!-- Простая сортировка/количество (пока статика) -->
-                <div class="flex items-center gap-2" style="font-size: 0.9rem; color: var(--text-secondary);">
-                    <span id="product-count">24 товара</span>
-                    <select id="sort-select"
-                        style="background: var(--bg-secondary); color: white; border: 1px solid var(--border-color); padding: 5px; border-radius: 5px;">
+                <div class="catalog-sort-bar">
+                    <span id="product-count" class="catalog-count">Загрузка...</span>
+                    <select id="sort-select" class="catalog-sort-select">
                         <option value="recommended">Рекомендуемые</option>
                         <option value="price-asc">Сначала дешевые</option>
                         <option value="price-desc">Сначала дорогие</option>
@@ -87,10 +84,10 @@
                 </div>
             </div>
 
-            <div class="products-grid" id="products-grid">
-                <!-- Товары будут вставлены сюда через JS -->
-                <div class="text-center" style="grid-column: 1/-1; padding: 2rem;">Загрузка товаров...</div>
-            </div>
+            <div class="products-grid" id="products-grid"></div>
+
+            <!-- Пагинация и кнопка "Показать ещё" -->
+            <div id="pagination-container" class="pagination-wrapper"></div>
         </main>
     </div>
 

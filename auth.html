@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volt Tech - Вход</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=15">
-    <link rel="stylesheet" href="css/auth.css?v=15">
+    <link rel="stylesheet" href="css/style.css?v=16">
+    <link rel="stylesheet" href="css/auth.css?v=16">
 </head>
 
 <body>
@@ -38,23 +38,23 @@
                 <button class="toggle-btn" id="btn-register" onclick="toggleMode('register')">Регистрация</button>
             </div>
 
-            <form id="auth-form">
+            <form id="auth-form" novalidate>
                 <div id="username-container" style="display: none;">
                     <div
                         style="text-align: left; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-secondary);">
                         Имя пользователя</div>
-                    <input type="text" id="username" class="auth-input" placeholder="User123">
+                    <input type="text" id="username" class="auth-input" placeholder="Иван">
                 </div>
 
                 <div style="text-align: left; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-secondary);">
                     Электронная почта</div>
-                <input type="email" id="email" class="auth-input" placeholder="name@example.com" required>
+                <input type="email" id="email" class="auth-input" placeholder="name@example.com">
 
                 <div style="text-align: left; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-secondary);">
                     Пароль</div>
-                <input type="password" id="password" class="auth-input" placeholder="••••••••" required>
+                <input type="password" id="password" class="auth-input" placeholder="••••••••">
 
-                <button type="submit" class="btn btn-primary" style="width: 100%;" id="submit-btn">Войти</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" id="submit-btn">Войти</button>
             </form>
 
             <div id="auth-msg" style="margin-top: 1rem; color: var(--accent-primary); min-height: 20px;"></div>

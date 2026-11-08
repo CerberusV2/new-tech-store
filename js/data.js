@@ -6,9 +6,10 @@ export const initialProducts = [
         name: "NVIDIA GeForce RTX 4080",
         category: "gpu",
         price: 1199.99,
+        oldPrice: 1410.00,
         image: "https://placehold.co/400x300/1a1d2e/00f0ff?text=RTX+4080",
         description: "Высокопроизводительная видеокарта для 4K гейминга.",
-        specs: { wattage: 320, performance_score: 90, type: "GDDR6X" }
+        specs: { wattage: 320, performance_score: 90, type: "GDDR6X", old_price: 1410.00 }
     },
     {
         id: "gpu-2",
@@ -53,9 +54,10 @@ export const initialProducts = [
         name: "AMD Ryzen 5 7600X",
         category: "cpu",
         price: 299,
+        oldPrice: 350,
         image: "https://placehold.co/400x300/1a1d2e/ff0055?text=Ryzen+5+7600X",
         description: "Народный 6-ядерный процессор.",
-        specs: { wattage: 105, performance_score: 55, socket: "AM5" }
+        specs: { wattage: 105, performance_score: 55, socket: "AM5", old_price: 350 }
     },
     {
         id: "cpu-3",
@@ -158,9 +160,10 @@ export const initialProducts = [
         name: "Samsung 990 PRO 2TB",
         category: "storage",
         price: 179.99,
+        oldPrice: 215.00,
         image: "https://placehold.co/400x300/1a1d2e/00f0ff?text=990+PRO+2TB",
         description: "Сверхбыстрый NVMe Gen4 накопитель.",
-        specs: { wattage: 5 }
+        specs: { wattage: 5, old_price: 215.00 }
     },
     {
         id: "ssd-2",

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="bgGradSsd" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111522"/>
+      <stop offset="100%" stop-color="#090b12"/>
+    </linearGradient>
+    <linearGradient id="ssdBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e2538"/>
+      <stop offset="100%" stop-color="#0d111a"/>
+    </linearGradient>
+    <linearGradient id="ssdAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#ff006e"/>
+    </linearGradient>
+    <filter id="ssdGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <rect width="200" height="200" rx="24" fill="url(#bgGradSsd)"/>
+
+  <!-- Пластина M.2 NVMe (под наклоном для динамики) -->
+  <g transform="rotate(-18 100 100)">
+    <!-- Коннектор M-Key слева -->
+    <rect x="14" y="76" width="14" height="32" rx="2" fill="#064e3b"/>
+    <line x1="17" y1="79" x2="17" y2="105" stroke="#fbbf24" stroke-width="5" stroke-dasharray="2.5 1.5"/>
+
+    <!-- Основная плата SSD -->
+    <rect x="26" y="68" width="152" height="64" rx="6" fill="url(#ssdBody)" stroke="#3b4566" stroke-width="2"/>
+
+    <!-- Выемка под крепежный винт справа -->
+    <circle cx="178" cy="100" r="7" fill="#0b0d14" stroke="#9ca3af" stroke-width="2"/>
+
+    <!-- Радиатор охлаждения поверх платы -->
+    <rect x="34" y="74" width="132" height="52" rx="4" fill="#151926" stroke="url(#ssdAccent)" stroke-width="1.5"/>
+
+    <!-- Неоновые полосы на радиаторе -->
+    <line x1="44" y1="84" x2="156" y2="84" stroke="url(#ssdAccent)" stroke-width="2.5" stroke-linecap="round" filter="url(#ssdGlow)"/>
+    <line x1="44" y1="116" x2="156" y2="116" stroke="#00f0ff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+
+    <!-- Надпись NVMe PRO -->
+    <text x="52" y="104" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="800" letter-spacing="1.5">NVMe M.2</text>
+  </g>
+</svg>

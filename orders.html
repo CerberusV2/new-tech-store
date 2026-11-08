@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volt Tech - Управление Заказами</title>
+    <title>Volt Tech - Панель Администратора</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=15">
-    <link rel="stylesheet" href="css/orders.css">
+    <link rel="stylesheet" href="css/style.css?v=20">
+    <link rel="stylesheet" href="css/orders.css?v=20">
+    <link rel="stylesheet" href="css/admin.css?v=20">
 </head>
 
 <body>
@@ -29,7 +30,7 @@
 
             <div class="flex items-center gap-4">
                 <a href="auth.html" class="nav-link">Войти</a>
-                <a href="orders.html" class="cart-btn">
+                <a href="orders.html" class="cart-btn" title="Панель администратора">
                     📋
                     <span class="cart-badge" id="orders-count">0</span>
                 </a>
@@ -37,50 +38,280 @@
         </div>
     </header>
 
-    <div class="container" style="padding-top: calc(var(--header-height) + 2rem); min-height: 80vh;">
-        <h1 style="margin-bottom: 2rem;">📋 Управление Заказами</h1>
+    <div class="container admin-page-container">
+        <div class="admin-page-header">
+            <div>
+                <h1>🛠️ Панель Администратора</h1>
+                <p style="color: var(--text-secondary);">Управление заказами клиентов и каталогом товаров магазина</p>
+            </div>
+            <button class="btn btn-primary" onclick="window.openAddProductModal()">➕ Добавить товар</button>
+        </div>
 
-        <div id="admin-check" style="display: none;">
-            <p class="text-center" style="padding: 4rem;">У вас нет прав доступа к этой странице.</p>
+        <div id="admin-check" class="glass-panel text-center" style="display: none; padding: 4rem 2rem;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">⛔</div>
+            <h2 style="margin-bottom: 0.5rem;">Доступ ограничен</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Эта страница доступна только администраторам магазина.</p>
+            <a href="index.html" class="btn btn-primary">Вернуться на главную</a>
         </div>
 
         <div id="orders-container">
-            <!-- Фильтры -->
-            <div class="glass-panel" style="padding: 1.5rem; margin-bottom: 2rem;">
-                <div class="flex items-center gap-2">
-                    <span style="color: var(--text-secondary);">Фильтр по статусу:</span>
-                    <select id="status-filter"
-                        style="background: var(--bg-secondary); color: white; border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 8px;">
-                        <option value="all">Все заказы</option>
-                        <option value="в обработке">В обработке</option>
-                        <option value="отправлен">Отправлен</option>
-                        <option value="доставлен">Доставлен</option>
-                        <option value="отменен">Отменен</option>
-                    </select>
+            <!-- Дашборд статистики -->
+            <div class="admin-stats-grid">
+                <div class="admin-stat-card glass-panel">
+                    <div class="admin-stat-label">Всего заказов</div>
+                    <div class="admin-stat-value" id="admin-stat-total-orders">0</div>
+                </div>
+                <div class="admin-stat-card glass-panel">
+                    <div class="admin-stat-label">Ждут обработки</div>
+                    <div class="admin-stat-value accent-warn" id="admin-stat-pending-orders">0</div>
+                </div>
+                <div class="admin-stat-card glass-panel">
+                    <div class="admin-stat-label">Товаров в каталоге</div>
+                    <div class="admin-stat-value" id="admin-stat-products-count">0</div>
+                </div>
+                <div class="admin-stat-card glass-panel">
+                    <div class="admin-stat-label">Общая выручка</div>
+                    <div class="admin-stat-value accent-green" id="admin-stat-revenue">0 сом</div>
                 </div>
             </div>
 
-            <!-- Таблица заказов -->
-            <div class="glass-panel" style="padding: 1.5rem;">
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead>
-                        <tr style="border-bottom: 1px solid var(--border-color);">
-                            <th style="padding: 1rem; text-align: left;">№ Заказа</th>
-                            <th style="padding: 1rem; text-align: left;">Дата</th>
-                            <th style="padding: 1rem; text-align: left;">Клиент</th>
-                            <th style="padding: 1rem; text-align: left;">Сумма</th>
-                            <th style="padding: 1rem; text-align: left;">Статус</th>
-                            <th style="padding: 1rem; text-align: left;">Действия</th>
-                        </tr>
-                    </thead>
-                    <tbody id="orders-table">
-                        <tr>
-                            <td colspan="6" style="padding: 2rem; text-align: center; color: var(--text-secondary);">
-                                Загрузка заказов...
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- Переключатель вкладок -->
+            <div class="admin-nav glass-panel">
+                <div class="flex gap-2" style="flex-wrap: wrap;">
+                    <button class="admin-nav-btn active" id="tab-btn-orders" onclick="window.switchAdminTab('orders')">📋 Заказы</button>
+                    <button class="admin-nav-btn" id="tab-btn-products" onclick="window.switchAdminTab('products')">📦 Товары каталога</button>
+                    <button class="admin-nav-btn" id="tab-btn-promos" onclick="window.switchAdminTab('promos')">🎟️ Промокоды</button>
+                </div>
+            </div>
+
+            <!-- ВКЛАДКА 1: ЗАКАЗЫ -->
+            <div id="admin-orders-tab">
+                <div class="glass-panel admin-toolbar">
+                    <div class="flex items-center gap-2" style="flex-wrap: wrap;">
+                        <span style="color: var(--text-secondary);">Фильтр по статусу:</span>
+                        <select id="status-filter" class="admin-select">
+                            <option value="all">Все заказы</option>
+                            <option value="в обработке">В обработке</option>
+                            <option value="отправлен">Отправлен</option>
+                            <option value="доставлен">Доставлен</option>
+                            <option value="отменен">Отменен</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="glass-panel admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>№ Заказа</th>
+                                <th>Дата</th>
+                                <th>Клиент</th>
+                                <th>Сумма</th>
+                                <th>Статус</th>
+                                <th style="text-align: right;">Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table">
+                            <tr>
+                                <td colspan="6" style="padding: 2rem; text-align: center; color: var(--text-secondary);">
+                                    Загрузка заказов...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ВКЛАДКА 2: ТОВАРЫ -->
+            <div id="admin-products-tab" style="display: none;">
+                <div class="glass-panel admin-toolbar">
+                    <div class="flex items-center gap-2" style="flex-wrap: wrap; flex: 1;">
+                        <input type="text" id="admin-product-search" class="search-bar" placeholder="Поиск товара по названию...">
+                        <select id="admin-category-filter" class="admin-select">
+                            <option value="all">Все категории</option>
+                            <option value="gpu">Видеокарты</option>
+                            <option value="cpu">Процессоры</option>
+                            <option value="motherboard">Материнские платы</option>
+                            <option value="ram">Память</option>
+                            <option value="storage">Накопители</option>
+                            <option value="psu">Блоки питания</option>
+                            <option value="accessories">Аксессуары</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="window.openAddProductModal()">➕ Новый товар</button>
+                </div>
+
+                <div class="glass-panel admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Фото</th>
+                                <th>Название</th>
+                                <th>Категория</th>
+                                <th>Характеристики</th>
+                                <th>Цена</th>
+                                <th style="text-align: right;">Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-products-tbody">
+                            <tr>
+                                <td colspan="6" style="padding: 2rem; text-align: center; color: var(--text-secondary);">
+                                    Загрузка товаров...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ВКЛАДКА 3: ПРОМОКОДЫ -->
+            <div id="admin-promos-tab" style="display: none;">
+                <div class="glass-panel admin-toolbar">
+                    <form id="admin-promo-form" class="flex items-center gap-2" style="flex-wrap: wrap; width: 100%;" novalidate>
+                        <input type="text" id="new-promo-code" class="form-input" placeholder="Код (напр. SALE25)" style="width: 160px; text-transform: uppercase;">
+                        <select id="new-promo-type" class="admin-select">
+                            <option value="percent">Процент (%)</option>
+                            <option value="fixed">Фикс. сумма (сом)</option>
+                        </select>
+                        <input type="number" id="new-promo-val" class="form-input" placeholder="Скидка (15)" style="width: 130px;" min="1">
+                        <input type="number" id="new-promo-min" class="form-input" placeholder="Мин. заказ (0)" style="width: 145px;" min="0">
+                        <input type="text" id="new-promo-desc" class="form-input" placeholder="Описание акции" style="flex: 1; min-width: 180px;">
+                        <button type="submit" class="btn btn-primary btn-sm">➕ Создать промокод</button>
+                    </form>
+                </div>
+
+                <div class="glass-panel admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Промокод</th>
+                                <th>Размер скидки</th>
+                                <th>Мин. сумма заказа</th>
+                                <th>Описание</th>
+                                <th style="text-align: right;">Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-promos-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО: ДОБАВЛЕНИЕ / РЕДАКТИРОВАНИЕ ТОВАРА -->
+    <div class="modal-overlay" id="product-modal" style="display: none;">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2 id="product-modal-title">Добавить товар</h2>
+                <button class="modal-close" onclick="window.closeProductModal()">✕</button>
+            </div>
+            <form id="product-form" novalidate>
+                <input type="hidden" id="prod-id">
+
+                <div class="form-group">
+                    <label class="form-label" for="prod-name">Название товара *</label>
+                    <input type="text" id="prod-name" class="form-input" placeholder="Например: NVIDIA GeForce RTX 4070 Super">
+                </div>
+
+                <div class="admin-form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="prod-category">Категория *</label>
+                        <select id="prod-category" class="form-input">
+                            <option value="gpu">Видеокарты</option>
+                            <option value="cpu">Процессоры</option>
+                            <option value="motherboard">Материнские платы</option>
+                            <option value="ram">Память</option>
+                            <option value="storage">Накопители</option>
+                            <option value="psu">Блоки питания</option>
+                            <option value="accessories">Аксессуары</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="prod-price">Актуальная цена (сом) *</label>
+                        <input type="number" id="prod-price" class="form-input" placeholder="1199" min="1" step="any">
+                    </div>
+                </div>
+
+                <div class="admin-form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="prod-old-price">Старая цена (зачёркнутая, сом)</label>
+                        <input type="number" id="prod-old-price" class="form-input" placeholder="Например: 1410 (необязательно)" min="0" step="any">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="prod-discount-pct">Быстрый расчёт скидки (%)</label>
+                        <div class="flex items-center gap-1">
+                            <input type="number" id="prod-discount-pct" class="form-input" placeholder="Напр: 15" min="0" max="95">
+                            <span id="prod-discount-preview" style="white-space: nowrap; font-size: 0.78rem; font-weight: 800; padding: 6px 10px; border-radius: 14px; background: rgba(255,0,85,0.2); color: #ff4d88; display: none;">-15% СКИДКА</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="prod-image">Изображение товара (URL или загрузка в Supabase Storage)</label>
+                    <input type="url" id="prod-image" class="form-input" placeholder="https://... (или выберите файл ниже)" style="margin-bottom: 0.5rem;">
+                    <input type="file" id="prod-image-file" accept="image/*" class="form-input" style="padding: 8px; font-size: 0.85rem;">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="prod-desc">Описание товара *</label>
+                    <textarea id="prod-desc" class="form-input" rows="3" placeholder="Краткое описание преимуществ и характеристик..."></textarea>
+                </div>
+
+                <div class="admin-specs-box">
+                    <h4 style="margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--accent-primary);">Технические характеристики (для конструктора ПК)</h4>
+                    <div class="admin-form-row">
+                        <div class="form-group" style="margin-bottom: 0.75rem;">
+                            <label class="form-label" for="spec-wattage">Мощность / TDP (Вт)</label>
+                            <input type="number" id="spec-wattage" class="form-input" placeholder="Например: 200">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0.75rem;">
+                            <label class="form-label" for="spec-score">Индекс произв. (1-100)</label>
+                            <input type="number" id="spec-score" class="form-input" placeholder="Например: 85" min="1" max="100">
+                        </div>
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label" for="spec-socket">Сокет (для CPU / Платы)</label>
+                            <select id="spec-socket" class="form-input">
+                                <option value="">Не требуется</option>
+                                <option value="AM5">AM5</option>
+                                <option value="AM4">AM4</option>
+                                <option value="LGA1700">LGA1700</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label" for="spec-type">Тип памяти (DDR)</label>
+                            <select id="spec-type" class="form-input">
+                                <option value="">Не требуется</option>
+                                <option value="DDR5">DDR5</option>
+                                <option value="DDR4">DDR4</option>
+                                <option value="GDDR6X">GDDR6X</option>
+                                <option value="GDDR6">GDDR6</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="window.closeProductModal()">Отмена</button>
+                    <button type="submit" class="btn btn-primary" id="save-product-btn">Сохранить товар</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО: ДЕТАЛИ ЗАКАЗА -->
+    <div class="modal-overlay" id="order-details-modal" style="display: none;">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2 id="order-modal-title">Детали заказа</h2>
+                <button class="modal-close" onclick="window.closeOrderModal()">✕</button>
+            </div>
+            <div id="order-modal-body"></div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-primary" onclick="window.closeOrderModal()">Закрыть</button>
             </div>
         </div>
     </div>

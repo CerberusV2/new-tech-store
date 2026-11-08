@@ -1,5 +1,6 @@
 import { api } from './api.js';
 import { initialProducts } from './data.js';
+import { showToast } from './toast.js';
 
 let allProducts = [];
 
@@ -72,15 +73,53 @@ function populateSelects() {
     }
 }
 
+const defaultIcons = {
+    mobo: 'img/builder-mobo.svg',
+    cpu: 'img/builder-cpu.svg',
+    gpu: 'img/builder-gpu.svg',
+    ram: 'img/builder-ram.svg',
+    ssd: 'img/builder-ssd.svg',
+    psu: 'img/builder-psu.svg'
+};
+
+function updateComponentRowUI(key, product) {
+    const row = document.getElementById(`row-${key}`);
+    const imgEl = document.getElementById(`img-${key}`);
+    const specsEl = document.getElementById(`specs-${key}`);
+
+    if (!product) {
+        if (row) row.classList.remove('selected-row');
+        if (imgEl) imgEl.src = defaultIcons[key];
+        if (specsEl) specsEl.textContent = 'Не выбрано';
+        return;
+    }
+
+    if (row) row.classList.add('selected-row');
+
+    // Если у товара загружено реальное фото (не placehold.co), ставим его, иначе оставляем четкую SVG-иллюстрацию
+    if (imgEl) {
+        const hasRealPhoto = product.image && !product.image.includes('placehold.co');
+        imgEl.src = hasRealPhoto ? product.image : defaultIcons[key];
+    }
+
+    if (specsEl) {
+        const parts = [`${product.price} сом`];
+        if (product.specs?.socket) parts.push(product.specs.socket);
+        if (product.specs?.type) parts.push(product.specs.type);
+        if (product.specs?.wattage) parts.push(`${product.specs.wattage}W`);
+        specsEl.textContent = parts.join(' • ');
+    }
+}
+
 function attachListeners() {
     for (const [key, select] of Object.entries(selects)) {
         if (!select) continue;
         select.addEventListener('change', (e) => {
             const id = e.target.value;
-            const product = id ? allProducts.find(p => p.id === id) : null;
+            const product = id ? allProducts.find(p => String(p.id) === String(id)) : null;
             currentBuild[key] = product;
 
-
+            updateComponentRowUI(key, product);
 
             // Фильтрация совместимых компонентов
             if (key === 'cpu' || key === 'mobo') {
@@ -247,8 +286,29 @@ if (document.getElementById('select-cpu')) {
     initBuilder();
 }
 
-window.selectTab = (tabId) => {
-    // Simple tab implementation needs HTML matching logic
-    // For now we just focus on the Custom Build part as requested
-    alert('Переключение табов в разработке. Сейчас доступен "Свой билд".');
+window.addCustomBuildToCart = () => {
+    const selectedItems = Object.values(currentBuild).filter(Boolean);
+    if (selectedItems.length === 0) {
+        showToast('Выберите хотя бы один компонент для сборки!', 'warning');
+        return;
+    }
+
+    const cart = JSON.parse(localStorage.getItem('tech_store_cart')) || [];
+    selectedItems.forEach(product => {
+        const existing = cart.find(item => item.id === product.id);
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            cart.push({ ...product, quantity: 1 });
+        }
+    });
+
+    localStorage.setItem('tech_store_cart', JSON.stringify(cart));
+
+    const cartCount = document.getElementById('cart-count');
+    if (cartCount) {
+        cartCount.innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
+    }
+
+    showToast(`В корзину добавлено компонентов: ${selectedItems.length} шт.`, 'success');
 };

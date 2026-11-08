@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volt Tech - Мастерская ПК</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=15">
+    <link rel="stylesheet" href="css/style.css?v=17">
 </head>
 
 <body>
@@ -133,72 +133,90 @@
             <!-- Left: Components -->
             <div class="builder-components">
 
-                <div class="component-selector glass-panel">
+                <div class="component-selector glass-panel" id="row-mobo">
                     <div class="component-label">
                         <div class="component-img-preview" id="preview-mobo">
-                            <img src="img/Motherboard.png" alt="Motherboard">
+                            <img src="img/builder-mobo.svg" alt="Материнская плата" id="img-mobo">
                         </div>
-                        Материнская плата
+                        <div>
+                            <div>Материнская плата</div>
+                            <div class="component-sub-specs" id="specs-mobo">Не выбрано</div>
+                        </div>
                     </div>
                     <div class="component-select-wrapper">
                         <select id="select-mobo" class="component-select"></select>
                     </div>
                 </div>
 
-                <div class="component-selector glass-panel">
+                <div class="component-selector glass-panel" id="row-cpu">
                     <div class="component-label">
                         <div class="component-img-preview" id="preview-cpu">
-                            <img src="img/Cpu.png" alt="CPU">
+                            <img src="img/builder-cpu.svg" alt="Процессор" id="img-cpu">
                         </div>
-                        Процессор
+                        <div>
+                            <div>Процессор</div>
+                            <div class="component-sub-specs" id="specs-cpu">Не выбрано</div>
+                        </div>
                     </div>
                     <div class="component-select-wrapper">
                         <select id="select-cpu" class="component-select"></select>
                     </div>
                 </div>
 
-                <div class="component-selector glass-panel">
+                <div class="component-selector glass-panel" id="row-gpu">
                     <div class="component-label">
                         <div class="component-img-preview" id="preview-gpu">
-                            <img src="img/Gpu.png" alt="GPU">
+                            <img src="img/builder-gpu.svg" alt="Видеокарта" id="img-gpu">
                         </div>
-                        Видеокарта
+                        <div>
+                            <div>Видеокарта</div>
+                            <div class="component-sub-specs" id="specs-gpu">Не выбрано</div>
+                        </div>
                     </div>
                     <div class="component-select-wrapper">
                         <select id="select-gpu" class="component-select"></select>
                     </div>
                 </div>
 
-                <div class="component-selector glass-panel">
+                <div class="component-selector glass-panel" id="row-ram">
                     <div class="component-label">
                         <div class="component-img-preview" id="preview-ram">
-                            <img src="img/Ram.png" alt="RAM">
+                            <img src="img/builder-ram.svg" alt="Память" id="img-ram">
                         </div>
-                        Память
+                        <div>
+                            <div>Оперативная память</div>
+                            <div class="component-sub-specs" id="specs-ram">Не выбрано</div>
+                        </div>
                     </div>
                     <div class="component-select-wrapper">
                         <select id="select-ram" class="component-select"></select>
                     </div>
                 </div>
 
-                <div class="component-selector glass-panel">
+                <div class="component-selector glass-panel" id="row-ssd">
                     <div class="component-label">
                         <div class="component-img-preview" id="preview-ssd">
-                            <img src="img/SSD.png" alt="SSD">
+                            <img src="img/builder-ssd.svg" alt="SSD накопитель" id="img-ssd">
                         </div>
-                        SSD
+                        <div>
+                            <div>SSD Накопитель</div>
+                            <div class="component-sub-specs" id="specs-ssd">Не выбрано</div>
+                        </div>
                     </div>
                     <div class="component-select-wrapper">
                         <select id="select-ssd" class="component-select"></select>
                     </div>
                 </div>
 
-                <div class="component-selector glass-panel">
+                <div class="component-selector glass-panel" id="row-psu">
                     <div class="component-label">
                         <div class="component-img-preview" id="preview-psu">
-                            <img src="img/Psu.png" alt="PSU">
+                            <img src="img/builder-psu.svg" alt="Блок питания" id="img-psu">
                         </div>
-                        Блок питания
+                        <div>
+                            <div>Блок питания</div>
+                            <div class="component-sub-specs" id="specs-psu">Не выбрано</div>
+                        </div>
                     </div>
                     <div class="component-select-wrapper">
                         <select id="select-psu" class="component-select"></select>
@@ -236,7 +254,7 @@
                     </div>
 
                     <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;"
-                        onclick="alert('Сборка добавлена в корзину!')">В корзину</button>
+                        onclick="window.addCustomBuildToCart()">В корзину</button>
                 </div>
             </aside>
         </div>
