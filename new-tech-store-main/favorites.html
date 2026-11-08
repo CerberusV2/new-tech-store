@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volt Tech - Избранное</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="TechStore" class="logo-icon-img">
+                Volt Tech
+            </a>
+
+            <nav>
+                <ul class="flex gap-4">
+                    <li><a href="index.html" class="nav-link">Главная</a></li>
+                    <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+                    <li><a href="builds.html" class="nav-link">Сборки</a></li>
+                </ul>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <a href="auth.html" class="nav-link">Войти</a>
+                <a href="cart.html" class="cart-btn">
+                    🛒
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" style="padding-top: calc(var(--header-height) + 2rem); min-height: 80vh;">
+        <div class="catalog-header">
+            <h2> ❤️ Ваши Избранные Товары</h2>
+        </div>
+
+        <div class="products-grid" id="favorites-grid">
+            <!-- Избранные товары будут вставлены сюда через JS -->
+            <div class="text-center" style="grid-column: 1/-1; padding: 2rem;">Загрузка избранного...</div>
+        </div>
+
+        <div id="empty-favorites-msg" class="text-center" style="display: none; padding: 4rem;">
+            <h3>У вас пока нет избранных товаров</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Добавьте товары из каталога, чтобы они
+                появились здесь.</p>
+            <a href="catalog.html" class="btn btn-primary">Перейти в каталог</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/data.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
