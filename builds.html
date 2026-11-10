@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volt Tech - Мастерская ПК</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=17">
+    <link rel="stylesheet" href="css/style.css?v=19">
 </head>
 
 <body>
@@ -133,6 +133,15 @@
             <!-- Left: Components -->
             <div class="builder-components">
 
+                <!-- Панель активных ограничений совместимости -->
+                <div class="glass-panel builder-top-bar">
+                    <div class="builder-compat-pills" id="compat-pills-bar">
+                        <span class="compat-pill" id="pill-socket">Сокет: Любой</span>
+                        <span class="compat-pill" id="pill-ram">Память: DDR4 / DDR5</span>
+                        <span class="compat-pill" id="pill-psu">Мин. БП: —</span>
+                    </div>
+                </div>
+
                 <div class="component-selector glass-panel" id="row-mobo">
                     <div class="component-label">
                         <div class="component-img-preview" id="preview-mobo">
@@ -145,6 +154,7 @@
                     </div>
                     <div class="component-select-wrapper">
                         <select id="select-mobo" class="component-select"></select>
+                        <button type="button" class="clear-slot-btn" id="clear-mobo" title="Убрать компонент" onclick="window.clearBuilderSlot('mobo')" style="display: none;">✕</button>
                     </div>
                 </div>
 
@@ -160,6 +170,7 @@
                     </div>
                     <div class="component-select-wrapper">
                         <select id="select-cpu" class="component-select"></select>
+                        <button type="button" class="clear-slot-btn" id="clear-cpu" title="Убрать компонент" onclick="window.clearBuilderSlot('cpu')" style="display: none;">✕</button>
                     </div>
                 </div>
 
@@ -175,6 +186,7 @@
                     </div>
                     <div class="component-select-wrapper">
                         <select id="select-gpu" class="component-select"></select>
+                        <button type="button" class="clear-slot-btn" id="clear-gpu" title="Убрать компонент" onclick="window.clearBuilderSlot('gpu')" style="display: none;">✕</button>
                     </div>
                 </div>
 
@@ -190,6 +202,7 @@
                     </div>
                     <div class="component-select-wrapper">
                         <select id="select-ram" class="component-select"></select>
+                        <button type="button" class="clear-slot-btn" id="clear-ram" title="Убрать компонент" onclick="window.clearBuilderSlot('ram')" style="display: none;">✕</button>
                     </div>
                 </div>
 
@@ -205,6 +218,7 @@
                     </div>
                     <div class="component-select-wrapper">
                         <select id="select-ssd" class="component-select"></select>
+                        <button type="button" class="clear-slot-btn" id="clear-ssd" title="Убрать компонент" onclick="window.clearBuilderSlot('ssd')" style="display: none;">✕</button>
                     </div>
                 </div>
 
@@ -220,41 +234,92 @@
                     </div>
                     <div class="component-select-wrapper">
                         <select id="select-psu" class="component-select"></select>
+                        <button type="button" class="clear-slot-btn" id="clear-psu" title="Убрать компонент" onclick="window.clearBuilderSlot('psu')" style="display: none;">✕</button>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Right: Stats -->
+            <!-- Right: Stats, Bottleneck Analyzer & Game FPS Calculator -->
             <aside class="builder-stats">
-                <div class="glass-panel" style="padding: 1.5rem;">
-                    <h3 style="margin-bottom: 1.5rem;">Параметры сборки</h3>
+                <div class="glass-panel" style="padding: 1.5rem; margin-bottom: 1.25rem;">
+                    <div class="flex justify-between items-center" style="margin-bottom: 1.2rem;">
+                        <h3 style="margin: 0;">Параметры сборки</h3>
+                        <span id="build-parts-count" class="parts-counter-badge">0 / 6 деталей</span>
+                    </div>
 
                     <div class="stat-row">
-                        <span style="color: var(--text-secondary)">Стоимость</span>
-                        <span id="build-price" style="font-weight: bold; font-size: 1.2rem;">0.00 сом</span>
+                        <span style="color: var(--text-secondary)">Итоговая стоимость</span>
+                        <span id="build-price" style="font-weight: 800; font-size: 1.3rem; color: var(--accent-primary);">0 сом</span>
                     </div>
 
                     <div style="margin-bottom: 1rem;">
-                        <div style="font-size: 0.9rem; margin-bottom: 5px;">
-                            Энергопотребление (от БП)
+                        <div class="flex justify-between items-center" style="font-size: 0.88rem; margin-bottom: 6px;">
+                            <span>⚡ Энергопотребление (TDP)</span>
+                            <span id="rec-psu-hint" style="color: var(--text-muted); font-size: 0.78rem;">Рекомендуемый БП: —</span>
                         </div>
                         <div class="wattage-bar-container"
-                            style="height: 24px; position: relative; background: #333; border-radius: 12px;">
+                            style="height: 24px; position: relative; background: #1c2033; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
                             <div id="wattage-fill" class="wattage-bar-fill"
                                 style="height: 100%; border-radius: 12px; width: 0%;"></div>
                             <div id="wattage-text"
-                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.8rem; font-weight: bold; text-shadow: 0 0 2px black;">
+                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.8rem; font-weight: bold; text-shadow: 0 0 4px black;">
                                 0 W</div>
                         </div>
                     </div>
 
-                    <div id="build-msg" class="compatibility-status status-ok">
-                        Выберите компоненты, чтобы проверить совместимость.
+                    <!-- Анализатор бутылочного горлышка (Bottleneck Analyzer) -->
+                    <div class="bottleneck-box" id="bottleneck-panel">
+                        <div class="flex justify-between items-center" style="margin-bottom: 0.5rem;">
+                            <span style="font-weight: 700; font-size: 0.92rem;">⚖️ Анализатор Bottleneck</span>
+                            <span class="bottleneck-badge" id="bottleneck-percent-badge">Ожидание CPU + GPU</span>
+                        </div>
+                        <div class="bottleneck-scores-row">
+                            <span>🧠 CPU: <strong id="bn-cpu-score">—</strong></span>
+                            <span>🎮 GPU: <strong id="bn-gpu-score">—</strong></span>
+                        </div>
+                        <div class="bottleneck-meter-track">
+                            <div class="bottleneck-meter-fill" id="bottleneck-meter-fill" style="width: 50%;"></div>
+                            <div class="bottleneck-center-mark" title="Идеальный баланс 50/50"></div>
+                        </div>
+                        <div class="bottleneck-scale-labels">
+                            <span>Упор в процессор</span>
+                            <span>Идеал</span>
+                            <span>Упор в видеокарту</span>
+                        </div>
+                        <p class="bottleneck-advice" id="bottleneck-advice">
+                            Выберите процессор и видеокарту, чтобы рассчитать баланс мощности и потери производительности.
+                        </p>
                     </div>
 
-                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;"
-                        onclick="window.addCustomBuildToCart()">В корзину</button>
+                    <button class="btn btn-primary" id="add-build-cart-btn" style="width: 100%; margin-top: 1.25rem;"
+                        onclick="window.addCustomBuildToCart()">🛒 Добавить сборку в корзину</button>
+                </div>
+
+                <!-- КАЛЬКУЛЯТОР FPS В ИГРАХ -->
+                <div class="glass-panel fps-calculator-panel" style="padding: 1.5rem;">
+                    <div class="flex justify-between items-center" style="margin-bottom: 0.75rem; flex-wrap: wrap; gap: 8px;">
+                        <h3 style="margin: 0; font-size: 1.1rem;">🎮 Калькулятор FPS в играх</h3>
+                        <span class="fps-ram-boost-badge" id="fps-ram-badge" style="display: none;">DDR5 +8% FPS</span>
+                    </div>
+
+                    <!-- Переключатели разрешения и пресета качества -->
+                    <div class="fps-controls-row">
+                        <div class="fps-res-group" id="fps-res-tabs">
+                            <button type="button" class="fps-res-btn active" data-res="1080p" onclick="window.setFpsResolution('1080p')">1080p <small>FHD</small></button>
+                            <button type="button" class="fps-res-btn" data-res="1440p" onclick="window.setFpsResolution('1440p')">1440p <small>2K</small></button>
+                            <button type="button" class="fps-res-btn" data-res="4k" onclick="window.setFpsResolution('4k')">4K <small>UHD</small></button>
+                        </div>
+                        <div class="fps-preset-group" id="fps-quality-tabs">
+                            <button type="button" class="fps-quality-btn active" data-quality="high" onclick="window.setFpsQuality('high')">Высокие</button>
+                            <button type="button" class="fps-quality-btn" data-quality="ultra" onclick="window.setFpsQuality('ultra')">Ультра</button>
+                        </div>
+                    </div>
+
+                    <!-- Список игр с прогресс-барами FPS -->
+                    <div id="fps-games-list" class="fps-games-list">
+                        <!-- Заполняется динамически из js/builder.js -->
+                    </div>
                 </div>
             </aside>
         </div>
